@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import Link from "next/link"
 
 export default function Home() {
   return (
@@ -15,9 +16,11 @@ export default function Home() {
           <a href="#" className="hover:text-white transition">Pricing</a>
         </div>
 
-        <Button className="bg-indigo-600 hover:bg-indigo-500">
-          Get Started
-        </Button>
+        <Link href="/signup">
+          <Button className="bg-indigo-600 hover:bg-indigo-500">
+            Sign Up
+          </Button>
+        </Link>
       </nav>
 
 
@@ -50,7 +53,7 @@ export default function Home() {
             size="lg"
             variant="outline"
             className="border-slate-600 bg-transparent text-white hover:bg-slate-800"
-            >
+          >
             View Demo
           </Button>
 

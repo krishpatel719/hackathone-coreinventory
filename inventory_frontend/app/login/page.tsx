@@ -1,10 +1,47 @@
 "use client"
 
+import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
 
 export default function Login() {
+
+  const router = useRouter()
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  })
+
+  const handleChange = (e:any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e:any) => {
+    e.preventDefault()
+
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+
+    const data = await res.json()
+
+    if (res.ok) {
+      router.push("/dashboard")
+    } else {
+      alert(data.error || "Login failed")
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950 text-white">
 
@@ -14,12 +51,23 @@ export default function Login() {
           Login to ManageX
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
 
-          <Input type="email" placeholder="Email Address" />
+          <Input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            onChange={handleChange}
+          />
 
           <div>
-            <Input type="password" placeholder="Password" />
+
+            <Input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+            />
 
             <div className="text-right mt-2">
               <Link
@@ -29,6 +77,7 @@ export default function Login() {
                 Forgot Password?
               </Link>
             </div>
+
           </div>
 
           <Button className="w-full bg-indigo-600 hover:bg-indigo-500">

@@ -1,10 +1,53 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export default function Signup() {
+
+  const router = useRouter()
+
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    username: "",
+    email: "",
+    contact_number: "",
+    password: ""
+  })
+
+  const handleChange = (e: any) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault()
+
+    const res = await fetch("/api/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+
+    const data = await res.json()
+
+    if (res.ok) {
+      alert("Signup successful")
+       // Redirect to dashboard
+      router.push("/dashboard")
+    } else {
+      alert("Signup failed")
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950 text-white">
 
@@ -14,19 +57,45 @@ export default function Signup() {
           Create ManageX Account
         </h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
 
-          <Input placeholder="First Name" />
+          <Input
+            name="first_name"
+            placeholder="First Name"
+            onChange={handleChange}
+          />
 
-          <Input placeholder="Last Name" />
+          <Input
+            name="last_name"
+            placeholder="Last Name"
+            onChange={handleChange}
+          />
 
-          <Input placeholder="Username" />
+          <Input
+            name="username"
+            placeholder="Username"
+            onChange={handleChange}
+          />
 
-          <Input type="email" placeholder="Email Address" />
+          <Input
+            name="email"
+            type="email"
+            placeholder="Email Address"
+            onChange={handleChange}
+          />
 
-          <Input placeholder="Contact Number" />
+          <Input
+            name="contact_number"
+            placeholder="Contact Number"
+            onChange={handleChange}
+          />
 
-          <Input type="password" placeholder="Password" />
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+          />
 
           <Button className="w-full bg-indigo-600 hover:bg-indigo-500">
             Sign Up
