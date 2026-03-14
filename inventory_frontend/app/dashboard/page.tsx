@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function Dashboard() {
     return (
@@ -12,9 +13,9 @@ export default function Dashboard() {
             {/* SIDEBAR */}
             <aside className="w-64 bg-white border-r p-6 flex flex-col">
 
-                <h1 className="text-2xl font-bold mb-10 text-indigo-600">
-                    ManageX
-                </h1>
+            <div className="mb-10">
+                <Image src="/logo.png" alt="ManageX Logo" width={160} height={70} />
+            </div>
 
 
                 <nav className="space-y-4 text-gray-700">

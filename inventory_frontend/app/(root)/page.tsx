@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import Image from "next/image"
 
 export default function Home() {
   return (
@@ -7,7 +8,10 @@ export default function Home() {
 
       {/* NAVBAR */}
       <nav className="flex items-center justify-between px-8 py-5 border-b border-slate-800">
-        <h1 className="text-2xl font-bold tracking-tight">ManageX</h1>
+
+        <div className="w-12 h-12 rounded-full overflow-hidden border border-slate-600">
+          <Image src="/logo.png" alt="ManageX Logo" width={48} height={48} className="object-cover w-full h-full" />
+        </div>
 
         <div className="hidden md:flex gap-8 text-slate-300">
           <a href="#" className="hover:text-white transition">Features</a>
